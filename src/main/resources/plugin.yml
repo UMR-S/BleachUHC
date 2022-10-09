@@ -1,0 +1,31 @@
+name: BleachUHC
+version: '${project.version}'
+main: umaru.bleachuhc.bleachuhc.BleachUHC
+api-version: 1.18
+authors: [ Umaru ]
+description: Plugin pour le BleachUHC
+commands:
+  drawline:
+    description: Trace une ligne entre 2 points
+    usage: /<command> [x0] [y0] [x1] [y1] [z]
+    aliases:
+      - dl
+      - dline
+  wandCombatZone:
+    description: Donne le baton pour les zones de combat
+    usage: /<command>
+    aliases:
+      - wcz
+      - wandcz
+  setYcombatZone:
+    description: Le y de la zone de combat
+    usage: /<command> [ymin] [ymax]
+    aliases:
+      - setycz
+      - sycz
+  saveCombatZone:
+    description: Permet de sauvegarder la zone de combat
+    usage: /<command> [name]
+    aliases:
+      - savecz
+      - svz
