@@ -43,17 +43,15 @@ public class EntityPotion implements Listener {
 
             if(event.getNewEffect() != null){
 
-                if(event.getNewEffect().getType().equals(PotionEffectType.HERO_OF_THE_VILLAGE) && event.getNewEffect().getAmplifier() == 0){
+                if(event.getNewEffect().getType().equals(PotionEffectType.HERO_OF_THE_VILLAGE)
+                        && event.getNewEffect().getAmplifier() == 0){
 
                     ReturnsDamageTask.setReturnTime(5);
                     HashMap<UUID,Double> playerHashMap = new HashMap<UUID,Double>();
                     event.getEntity().getWorld().getLivingEntities().forEach(e -> playerHashMap.put(e.getUniqueId(),0.0));
                     ReturnsDamageTask.setHashMapReturnDamage(playerHashMap);
                     BukkitTask playerReturnsDamage = new ReturnsDamageTask(BleachUHC.getPlugin()).runTaskTimer(BleachUHC.getPlugin(), 0, 20);
-
-
                 }
-
             }
         }
 

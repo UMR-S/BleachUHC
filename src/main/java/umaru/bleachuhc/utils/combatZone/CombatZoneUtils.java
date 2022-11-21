@@ -28,6 +28,7 @@ public class CombatZoneUtils {
         this.isFirstPoint = false;
         this.finalZone = new HashMap<Integer, List<Integer>>();
         this.closedShape = false;
+        this.allZones = new ArrayList<>();
     }
     public void addLine(int x, int z){
 

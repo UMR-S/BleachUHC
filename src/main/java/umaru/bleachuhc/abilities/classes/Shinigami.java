@@ -10,7 +10,6 @@ public class Shinigami {
 
     public static void ShinigamiStuff(){
         //Zanpakuto
-        //8000001
         ItemStack zanpakuto = new ItemStack(Material.IRON_SWORD);
         ItemMeta zanpakutoMeta = zanpakuto.getItemMeta();
         zanpakutoMeta.setUnbreakable(true);
