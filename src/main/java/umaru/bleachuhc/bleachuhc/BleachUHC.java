@@ -1,41 +1,42 @@
 package umaru.bleachuhc.bleachuhc;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import umaru.bleachuhc.abilities.classes.Dash;
-import umaru.bleachuhc.commands.CombatZoneSetY;
-import umaru.bleachuhc.commands.DrawLineCommand;
-import umaru.bleachuhc.commands.SaveCombatZone;
-import umaru.bleachuhc.commands.WandCombatZone;
+import umaru.bleachuhc.abilities.classes.ClassesSpells;
+import umaru.bleachuhc.commands.*;
 import umaru.bleachuhc.listeners.entities.EntityDamageByEntity;
-import umaru.bleachuhc.listeners.entities.ShootArrow;
-import umaru.bleachuhc.listeners.players.EntityPotion;
-import umaru.bleachuhc.listeners.players.InteractEvent;
-import umaru.bleachuhc.listeners.players.EnityOnFireEvent;
+import umaru.bleachuhc.listeners.players.*;
+import umaru.bleachuhc.utils.classesUtils.ClassesUtils;
 import umaru.bleachuhc.utils.combatZone.CombatZoneUtils;
 import umaru.bleachuhc.utils.configUtils.CombatZoneConfigManager;
 
 public final class BleachUHC extends JavaPlugin {
 
     private static BleachUHC plugin;
-    public static Dash dash;
+    public static ClassesSpells classesSpells;
     public static CombatZoneUtils combatzoneUtils;
     public static CombatZoneConfigManager combatZoneComfigManager;
+    public static ClassesUtils classesUtils;
     @Override
     public void onEnable() {
         // Plugin startup logic
         plugin=this;
         getServer().getPluginManager().registerEvents(new InteractEvent(), plugin);
+        getServer().getPluginManager().registerEvents(new CombatZoneEvent(), plugin);
         getServer().getPluginManager().registerEvents(new EnityOnFireEvent(), plugin);
         getServer().getPluginManager().registerEvents(new EntityPotion(), plugin);
         getServer().getPluginManager().registerEvents(new EntityDamageByEntity(), plugin);
-        getServer().getPluginManager().registerEvents(new ShootArrow(), plugin);
+        //getServer().getPluginManager().registerEvents(new ShootArrow(), plugin); pas utilisé au final
+        getServer().getPluginManager().registerEvents(new EntityPickItemEvent(), plugin);
         getCommand("drawline").setExecutor(new DrawLineCommand());
         getCommand("wandCombatZone").setExecutor(new WandCombatZone());
         getCommand("setYcombatZone").setExecutor(new CombatZoneSetY());
         getCommand("saveCombatZone").setExecutor(new SaveCombatZone());
-        dash =new Dash();
+        getCommand("cancelAll").setExecutor(new CancelAll());
+        getCommand("chooseClasse").setExecutor(new ChooseClasse());
+        classesSpells =new ClassesSpells();
         combatzoneUtils = new CombatZoneUtils();
         combatZoneComfigManager = new CombatZoneConfigManager(this);
+        classesUtils = new ClassesUtils();
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();

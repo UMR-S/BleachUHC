@@ -187,4 +187,25 @@ public class CombatZoneUtils {
         return false;
     }
 
+    public boolean isBlockInZone(int xBlock, int yBlock, int zBlock){
+
+        for(List combatZone : this.allZones){
+
+            HashMap<Integer,List<Integer>> tempHashMap = (HashMap<Integer, List<Integer>>) combatZone.get(2);
+            int ymin = (int) combatZone.get(0);
+            int ymax = (int) combatZone.get(1);
+            for(Integer x : tempHashMap.keySet()){
+
+                if(x.intValue() == xBlock){
+                    if(zBlock >= tempHashMap.get(x).get(0) && zBlock <= tempHashMap.get(x).get(1)){
+                        if(yBlock >= ymin && yBlock <= ymax){
+                            return true;
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
 }

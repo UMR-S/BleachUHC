@@ -29,3 +29,13 @@ commands:
     aliases:
       - savecz
       - svz
+  cancelAll:
+    description: Reset la zone en train d'être faite
+    usage: /<command>
+    aliases:
+      -call
+  chooseClasse:
+    description: Choisir une classe
+    usage: /<command> [classe]
+    aliases:
+      - cc

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 
-public class Dash {
+public class ClassesSpells {
 
     public void Dash(double power,String playerName){
         Player player = Bukkit.getPlayer(playerName);

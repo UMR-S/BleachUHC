@@ -6,11 +6,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import umaru.bleachuhc.bleachuhc.BleachUHC;
 
-public class CancelAll implements CommandExecutor {
+public class ChooseClasse implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
-            BleachUHC.combatzoneUtils.resetZone();
+            BleachUHC.classesUtils.addPlayerToClassesMap(((Player) sender).getName(), args[0]);
         }
         return false;
     }
