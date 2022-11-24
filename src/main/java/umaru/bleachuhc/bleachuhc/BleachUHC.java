@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import umaru.bleachuhc.abilities.classes.ClassesSpells;
 import umaru.bleachuhc.commands.*;
 import umaru.bleachuhc.listeners.entities.EntityDamageByEntity;
+import umaru.bleachuhc.listeners.entities.UndyingEvent;
 import umaru.bleachuhc.listeners.players.*;
 import umaru.bleachuhc.utils.classesUtils.ClassesUtils;
 import umaru.bleachuhc.utils.combatZone.CombatZoneUtils;
@@ -27,6 +28,10 @@ public final class BleachUHC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityDamageByEntity(), plugin);
         //getServer().getPluginManager().registerEvents(new ShootArrow(), plugin); pas utilisé au final
         getServer().getPluginManager().registerEvents(new EntityPickItemEvent(), plugin);
+        //getServer().getPluginManager().registerEvents(new EntityDamage(), plugin); pas utilisé au final
+        getServer().getPluginManager().registerEvents(new UndyingEvent(), plugin);
+        getServer().getPluginManager().registerEvents(new PlayerDropEvent(), plugin);
+        getServer().getPluginManager().registerEvents(new InventoryMoveEvent(), plugin);
         getCommand("drawline").setExecutor(new DrawLineCommand());
         getCommand("wandCombatZone").setExecutor(new WandCombatZone());
         getCommand("setYcombatZone").setExecutor(new CombatZoneSetY());

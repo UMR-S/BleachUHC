@@ -12,8 +12,7 @@ public class ReturnsDamageTask extends BukkitRunnable {
 
     private static int returnTime;
     private static HashMap<UUID,Double> hashMapReturnDamage;
-    private
-    BleachUHC bleachUHC;
+    private BleachUHC bleachUHC;
 
     public ReturnsDamageTask(BleachUHC bleachUHC) {
         this.bleachUHC = bleachUHC;
@@ -26,7 +25,7 @@ public class ReturnsDamageTask extends BukkitRunnable {
         if (returnTime == 0) {
             this.cancel();
             hashMapReturnDamage.keySet().forEach(p -> ((LivingEntity) Bukkit.getEntity(p)).damage(hashMapReturnDamage.get(p)));
-//            hashMapReturnDamage.keySet().forEach(p -> Bukkit.getPlayer(p).sendMessage(p + " a reçu " + hashMapReturnDamage.get(p).toString() + " damages"));
+            //hashMapReturnDamage.keySet().forEach(p -> Bukkit.getPlayer(p).sendMessage(p + " a reçu " + hashMapReturnDamage.get(p).toString() + " damages"));
         }
     }
 

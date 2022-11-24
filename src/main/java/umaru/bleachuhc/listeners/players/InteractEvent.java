@@ -1,5 +1,6 @@
 package umaru.bleachuhc.listeners.players;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,9 +10,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
+import umaru.bleachuhc.abilities.GiveItem;
 import umaru.bleachuhc.abilities.boss.Gin;
-import umaru.bleachuhc.abilities.classes.ShunShunRika;
 import umaru.bleachuhc.bleachuhc.BleachUHC;
+import umaru.bleachuhc.bleachuhc.game.task.HogyokuFirstLevelTask;
+import umaru.bleachuhc.bleachuhc.game.task.HogyokuInactifTask;
+import umaru.bleachuhc.bleachuhc.game.task.ReturnsDamageTask;
 
 public class InteractEvent implements Listener {
 
@@ -20,7 +25,7 @@ public class InteractEvent implements Listener {
     @EventHandler
     public void onClickBleachUHC(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (player.getInventory().getItemInMainHand().hasItemMeta()) {
+        if (player.getInventory().getItemInMainHand().getItemMeta().hasCustomModelData()) {
 
             //Shinigami
             // Dash shinigami
@@ -53,9 +58,8 @@ public class InteractEvent implements Listener {
 
                 bleachUHC.classesSpells.Dash(5, player.getName());
                 player.setCooldown(Material.CARROT_ON_A_STICK, 300);
-
-
             }
+            //
             //SSR
             // Ciel Unique
             if ((event.getAction() == Action.RIGHT_CLICK_AIR
@@ -94,11 +98,30 @@ public class InteractEvent implements Listener {
                     && player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == 3000304
                     && BleachUHC.classesUtils.isPlayerClasse(player.getName(), "ssr")) {
 
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 100, 0, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.HERO_OF_THE_VILLAGE, 100, 0, false, false, false));
 
             }
-
-            // Brazo bouclier
+            //Toute classe
+            //Fragment inactif du Hogyoku
+            if((event.getAction() == Action.RIGHT_CLICK_AIR
+                    || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+                    && !player.hasCooldown(Material.NETHER_WART)
+                    && player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == 5149601) {
+                event.getPlayer().getInventory().remove(event.getPlayer().getInventory().getItemInMainHand());
+                GiveItem.giveHogyokuActifFragment(event.getPlayer().getName());
+                event.getPlayer().damage(255);
+            }
+            // Hogyoku
+            if((event.getAction() == Action.RIGHT_CLICK_AIR
+                    || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+                    && !player.hasCooldown(Material.NETHERITE_SCRAP)
+                    && !HogyokuInactifTask.isHogyokuActivated()
+                    && player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == 5149604){
+                HogyokuFirstLevelTask.setPlayerName(player.getName());
+                HogyokuFirstLevelTask.setTimeActive(12000);
+                HogyokuInactifTask.setHogyokuActivated(true);
+                BukkitTask hogyokuFirstLevel = new HogyokuFirstLevelTask(BleachUHC.getPlugin()).runTaskTimer(BleachUHC.getPlugin(), 0, 20);
+            }
         }
         // Wand combat zone
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK
